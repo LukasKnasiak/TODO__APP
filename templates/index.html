@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <section class="hr">
+    <h1>Welcome to My First Learning APP!</h1>
+    <h3>You can have a look how its working and how its looks like. Im not  the best graphic designer 
+        so I google some stuff for design and ask CHatGPT to help me design 
+        a bit my website app for better looking because I Dont have any good ideas in my head</h3>
+    </section>
+    <div class="container">
+        <hr>
+        {% if message %}
+            <p>{{message}}</p>
+        {% endif %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Time Created</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in todo_list %}
+                <tr>
+                    <td>{{ todo.task }}</td>
+                    <td>{{ todo.date_created.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td>
+                        {% if not todo.complete %}
+                        Incomplete
+                        {% else %}
+                        Complete
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form action="/update/{{ todo.id }}" method="post">
+                            <button type="submit" name="complete" value="{{ 'true' if not todo.complete else 'false' }}">
+                                {{ 'Mark as Complete' if not todo.complete else 'Mark as Incomplete' }}
+                            </button>
+                        </form>
+                        <form action="/delete/{{ todo.id }}" method="post" style="display: inline;">
+                            <button type="submit">Delete Task</button>
+                        </form>
+                        <a href="/edit/{{ todo.id }}">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+        <form action="/add" method="post">
+            <input type="text" name="task" placeholder="New task" required>
+            <button type="submit">Add Task</button>
+        </form>
+        
+    </div>
+</body>
+</html>
