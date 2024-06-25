@@ -121,4 +121,37 @@ a:hover {
     color: white;
 }
 
+.button-dark {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hide default checkbox */
+.toggle-checkbox {
+    display: none;
+}
+
+/* Play and Pause button styles */
+.play-pause-label::before {
+    content: 'Play';
+}
+
+.play-pause-label.playing::before {
+    content: 'Pause';
+}
+
+.play-pause-label::before,
+.play-pause-label::after {
+    font-size: 18px;
+}
+
+.play-pause-label::before {
+    content: 'Play';
+}
 
